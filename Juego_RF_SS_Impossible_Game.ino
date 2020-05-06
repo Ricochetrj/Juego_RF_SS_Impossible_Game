@@ -295,11 +295,13 @@ animate();
 
 collision();
 pausable = digitalRead(pause);
-
-if(pausable == LOW){
-state = ~state;
+if(pausable == HIGH){
+state = 1;
 }
-if(state == 1){
+if(pausable == LOW){
+state = 0;
+}
+if(state == 0){
 pausa();
 }
 }
@@ -414,11 +416,13 @@ FillRect(0,150,34,17,0x421b);
 animate();
 collision2();
 pausable = digitalRead(pause);
-
-if(pausable == LOW){
-state = ~state;
+if(pausable == HIGH){
+state = 1;
 }
-if(state == 1){
+if(pausable == LOW){
+state = 0;
+}
+if(state == 0){
 pausa();
 }
 }
@@ -1220,10 +1224,10 @@ platy1 = 90;
   String text2 = "Pause";
   LCD_Print(text2, 70, 120, 2, 0xffff, 0xD082);
   digitalWrite(pausemusic, HIGH);
-    if(pausable == LOW){
+    if(pausable == HIGH){
       Start = true;
       digitalWrite(pausemusic, LOW);
-      FillRect(70, 120, 70, 30, 0x421b);
+      FillRect(70, 120, 90, 30, 0x421b);
     }
   }
  }
