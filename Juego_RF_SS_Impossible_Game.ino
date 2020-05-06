@@ -123,6 +123,11 @@ uint8_t platx2 = 0;
 uint8_t platy1 = 0;
 String Puntos;
 
+uint8_t cubey1 = yB;
+uint8_t cubey2 = yB+30;
+uint8_t cubex1 = 150;
+uint8_t cubex2 = 166;
+
 File myFile;
 //***************************************************************************************************************************************
 // Inicialización
@@ -201,8 +206,11 @@ void loop() {
   LCD_Print(Puntos, 200, 70, 2, 0x0000, 0xD082);
   xspike2 = xspike + 100;
   xspike3 = xspike2 + 200;
-  
-  if(yB >= 189){
+
+  if((cubex2>=platx1) && (cubex1<=platx2) &&(cubey1>=platy1)){
+    grounded = true;
+  }
+  else if(yB >= 189 ){
     grounded = true;
   }
   else if(yB < 189){
@@ -958,10 +966,7 @@ if (Points>=500){
 }
 ///////////////////////////////
 void collision2(){
-uint8_t cubey1 = yB;
-uint8_t cubey2 = yB+30;
-uint8_t cubex1 = 150;
-uint8_t cubex2 = 166;
+
 
 uint8_t cube2y1 = yB2;
 uint8_t cube2y2 = yB2+40;
