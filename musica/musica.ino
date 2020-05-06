@@ -1,7 +1,7 @@
 #include "pitches.h"
 
 int senal = HIGH;
-int over = HIGH;
+int over = LOW;
 
 const int DOOM[] PROGMEM = {
   NOTE_E2, 8, NOTE_E2, 8, NOTE_E3, 8, NOTE_E2, 8, NOTE_E2, 8, NOTE_D3, 8, NOTE_E2, 8, NOTE_E2, 8, //1
@@ -126,6 +126,7 @@ void setup() {
   // CONFIGURACION DE PUERTOS
   pinMode(A1, OUTPUT); // AN1 salida para el buzzer
   pinMode(2, INPUT); // Entrada de senal digital del microcontroladro 2
+  pinMode(3, INPUT); // Entrada de senal digital del microcontroladro 2
 }
 
 void loop() {
@@ -143,11 +144,11 @@ void loop() {
       noteDuration = (wholenote) / abs(divider);
       noteDuration *= 1.5; // increases the duration in half for dotted notes
     }
-    if(senal == LOW && over == HIGH){
+    if(senal == LOW && over == LOW){
       // Las notas de este tono fueron tomadas del codigo del codigo de robsoncouto en: https://github.com/robsoncouto/arduino-songs/blob/master/doom/doom.ino
       tone(A1, pgm_read_word_near(DOOM+thisNote), noteDuration * 0.9);
       delay(noteDuration);
-      } else if(senal == HIGH && over == HIGH){
+      } else if(senal == HIGH && over == LOW ){
         // este sonido es de Mario y fue obtenido de la libreria de martinus96 en: https://forum.arduino.cc/index.php?topic=623141.0
         tone(A1, NOTE_G4, 47);
         delay(120);
@@ -169,12 +170,12 @@ void loop() {
         delay(24);
         tone(A1, NOTE_E5, 48);
         delay(48);
-        } else if(over == LOW){
+        } else if(over == HIGH){
           tone(A1,NOTE_G4);
           delay(250);
           tone(A1,NOTE_C4);
           delay(500);
-          noTone(sAudioPin);
+          
         }
         // Limpiamos el ultimo tono
         noTone(A1);

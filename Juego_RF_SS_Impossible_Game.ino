@@ -86,6 +86,8 @@ uint8_t buttonState = 0;
 const int buttonPin2 = PE_2;  
 uint8_t buttonState2; 
 uint8_t buttonStateOld2 = 0;
+
+const int musica = PE_3; 
 uint8_t xspike = 200;
 uint8_t xspike2; 
 uint8_t xspike3; 
@@ -121,6 +123,7 @@ File myFile;
 //***************************************************************************************************************************************
 void setup() {
   pinMode(PA_7, OUTPUT);
+  pinMode(musica, OUTPUT);
   //pinMode(PA_6, INPUT);   
   pinMode(buttonPin, INPUT_PULLUP); 
   pinMode(buttonPin2, INPUT_PULLUP);
@@ -767,7 +770,7 @@ void make_floor(){
 }
 
 void Game_Start(){
-  //FillRect(0, 0, 319, 219, 0x00ff);
+  digitalWrite(musica,LOW);
   LCD_Bitmap(0, 0, 320, 240, fondo);
   LCD_Bitmap(80, 40, 154, 77, logo);
   String Start1 = "Press 1 ->"; 
@@ -1012,7 +1015,8 @@ void gameover(){
   Start = false;
   FillRect(0, 0, 319, 219, 0x421b);
   while(!Start){
-  String over = "Fuck You!";
+    digitalWrite(musica,HIGH);
+  String over = "Git Gud!";
   LCD_Print(over, 100, 100, 2, 0xffff, 0xD082);
   String again = "Press Jump to Start again";
   LCD_Print(again, 100, 150, 1, 0xf420, 0x0000);
@@ -1058,6 +1062,7 @@ void winner(void){
   Start = false;
   FillRect(0, 0, 319, 219, 0x421b);
   while(!Start){
+    digitalWrite(musica,HIGH);
   String text1 = "Player 1 Wins";
   LCD_Print(text1, 30, 20, 2, 0xffff, 0xD082);
   String again = "Press Jump to Start again";
@@ -1104,6 +1109,7 @@ void winner(void){
   Start = false;
   FillRect(0, 0, 319, 219, 0x421b);
   while(!Start){
+    digitalWrite(musica,HIGH);
   String text1 = "Player 2 Wins";
   LCD_Print(text1, 30, 20, 2, 0xffff, 0xD082);
   String again = "Press Jump to Start again";
