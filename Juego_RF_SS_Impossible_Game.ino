@@ -62,6 +62,7 @@ void collision2();
 void jump2();
 void sd_highscore();
 void plataforma();
+void pausa();
 extern uint8_t fondo[];
 //extern uint8_t chonk[];
 //extern uint8_t cubo2[];
@@ -87,6 +88,10 @@ const int buttonPin2 = PE_2;
 uint8_t buttonState2; 
 uint8_t buttonStateOld2 = 0;
 
+const int pause = PC_4; 
+
+const int pausemusic = PC_5; 
+uint8_t pausable = 0; 
 const int musica = PE_3; 
 uint8_t xspike = 200;
 uint8_t xspike2; 
@@ -124,9 +129,11 @@ File myFile;
 void setup() {
   pinMode(PA_7, OUTPUT);
   pinMode(musica, OUTPUT);
+  pinMode(pausemusic, OUTPUT);
   //pinMode(PA_6, INPUT);   
   pinMode(buttonPin, INPUT_PULLUP); 
   pinMode(buttonPin2, INPUT_PULLUP);
+  pinMode(pause, INPUT_PULLUP); 
   SysCtlClockSet(SYSCTL_SYSDIV_2_5|SYSCTL_USE_PLL|SYSCTL_OSC_MAIN|SYSCTL_XTAL_16MHZ);
   Serial.begin(9600);
   GPIOPadConfigSet(GPIO_PORTB_BASE, 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD_WPU);
@@ -286,8 +293,10 @@ FillRect(0,150,34,17,0x421b);
 animate();
 
 collision();
-
-
+pausable = digitalRead(pause);
+if(pausable == LOW){
+pausa();
+}
 }
 
 
@@ -399,7 +408,10 @@ FillRect(0,150,34,17,0x421b);
 //animaciones
 animate();
 collision2();
-
+pausable = digitalRead(pause);
+if(pausable == LOW){
+pausa();
+}
 }
 }
 
@@ -1190,4 +1202,19 @@ FillRect(xspike+32,90,32,17,0x421b);
 platx1 = xspike-32;
 platx2 = xspike;
 platy1 = 90;
+ }
+ void pausa(){
+  
+   Start = false;
+  while(!Start){
+  pausable = digitalRead(pause);
+  String text2 = "Pause";
+  LCD_Print(text2, 70, 120, 2, 0xffff, 0xD082);
+  digitalWrite(pausemusic, HIGH);
+    if(pausable == LOW){
+      Start = true;
+      digitalWrite(pausemusic, LOW);
+      FillRect(70, 120, 70, 30, 0x421b);
+    }
+  }
  }
