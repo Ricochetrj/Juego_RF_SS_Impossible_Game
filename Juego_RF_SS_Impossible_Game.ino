@@ -92,6 +92,7 @@ const int pause = PC_4;
 
 const int pausemusic = PC_5; 
 uint8_t pausable = 0; 
+uint8_t state = 0;
 const int musica = PE_3; 
 uint8_t xspike = 200;
 uint8_t xspike2; 
@@ -294,7 +295,11 @@ animate();
 
 collision();
 pausable = digitalRead(pause);
+
 if(pausable == LOW){
+state = ~state;
+}
+if(state == 1){
 pausa();
 }
 }
@@ -409,7 +414,11 @@ FillRect(0,150,34,17,0x421b);
 animate();
 collision2();
 pausable = digitalRead(pause);
+
 if(pausable == LOW){
+state = ~state;
+}
+if(state == 1){
 pausa();
 }
 }
