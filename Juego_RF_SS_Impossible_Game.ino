@@ -97,7 +97,7 @@ const int musica = PE_3;
 uint8_t xspike = 200;
 uint8_t xspike2; 
 uint8_t xspike3; 
-uint8_t spikescroll = -4;
+uint8_t spikescroll = -3;
 uint8_t animc = 0;
 uint8_t animsp = 0;
 uint8_t animchonk = 0;
@@ -184,7 +184,7 @@ Game_Start();
   String text1 = "Impossible Game!";
   LCD_Print(text1, 30, 20, 2, 0xffff, 0xD082);
   
- xspike = 212;
+ xspike = 249;
  make_floor();
   String score = "Score:";
   LCD_Print(score, 200, 50, 2, 0x0000, 0xD082);
@@ -240,12 +240,12 @@ void loop() {
 
 xspike += spikescroll;
 if(Points<200){
-  if(xspike<292){
+  if(xspike<=250 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>292){
-  xspike = 292;
+  else if(xspike>250&& xspike< 0){
+  xspike = 250;
   }
 }
 
@@ -967,6 +967,10 @@ if (Points>=500){
 ///////////////////////////////
 void collision2(){
 
+cubey1 = yB;
+cubey2 = yB+30;
+ cubex1 = 150;
+ cubex2 = 166;
 
 uint8_t cube2y1 = yB2;
 uint8_t cube2y2 = yB2+40;
@@ -1096,7 +1100,7 @@ void gameover(){
    String score = "Score:";
   LCD_Print(score, 200, 50, 2, 0x0000, 0xD082);
   Points = 0;
-  xspike = 292;
+  xspike = 249;
   yB = 187;
   yB2 = 184;
   
@@ -1189,7 +1193,7 @@ void winner(void){
    String score = "Score:";
   LCD_Print(score, 200, 50, 2, 0x0000, 0xD082);
   Points = 0;
-  xspike = 302;
+  xspike = 292;
   yB = 187;
   yB2 = 184;
   p2w = 0;
