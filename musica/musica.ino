@@ -120,8 +120,9 @@ const int DOOM[] PROGMEM = {
 
 int notes = sizeof(DOOM) / sizeof(DOOM[0]) / 2;
 int wholenote = (240000) / 225;
+int wholenote_pause = (240000) / 100;
 
-int divider = 0, noteDuration = 0;
+int divider = 0, noteDuration = 0, noteDuration_pause = 0;
 
 void setup() {
   // CONFIGURACION DE PUERTOS
@@ -142,10 +143,13 @@ void loop() {
     if (divider > 0) {
       // regular note, just proceed
       noteDuration = (wholenote) / divider;
+      noteDuration_pause = (wholenote_pause) / divider;
     } else if (divider < 0) {
       // dotted notes are represented with negative durations!!
       noteDuration = (wholenote) / abs(divider);
+      noteDuration_pause = (wholenote_pause) / abs(divider);
       noteDuration *= 1.5; // increases the duration in half for dotted notes
+      noteDuration_pause *= 1.5; // increases the duration in half for dotted notes
     }
     if(senal == LOW && over == LOW && pause == LOW){
       // Las notas de este tono fueron tomadas del codigo del codigo de robsoncouto en: https://github.com/robsoncouto/arduino-songs/blob/master/doom/doom.ino
@@ -181,8 +185,9 @@ void loop() {
           delay(500);
         } else if(pause == HIGH){
           // TONO DE PAUSA
-          tone(A1, NOTE_G4, 47);
-          delay(120);
+          
+          tone(A1, pgm_read_word_near(DOOM+thisNote), noteDuration_pause * 0.9);
+          delay(noteDuration_pause);
         }
         // Limpiamos el ultimo tono
         noTone(A1);

@@ -141,6 +141,22 @@ void setup() {
   Serial.println("Inicio");
   LCD_Init();
   LCD_Clear(0x00);
+  //////
+  Serial.begin(9600);
+  SPI.setModule(0);
+  while (!Serial) {
+    ; // wait for serial port to connect
+  }
+
+  Serial.print("Initializing SD card...");
+  pinMode(10, OUTPUT);
+  
+  if (!SD.begin(32)) {
+    Serial.println("initialization failed!");
+    return;
+  }
+  Serial.println("We Found the Kush #420.");
+  //////////////
 Game_Start();
  while(!Start){
   buttonState = digitalRead(buttonPin);
@@ -1056,7 +1072,7 @@ void gameover(){
   while(!Start){
   buttonState2 = digitalRead(buttonPin2);
   buttonState = digitalRead(buttonPin);
-  //sd_highscore();
+  sd_highscore();
     if(buttonState == LOW){
       Start = true;
       digitalWrite(PA_7,HIGH);
@@ -1177,13 +1193,6 @@ void winner(void){
 }
 
 void sd_highscore(){
-  Serial.begin(9600);
-   Serial.print("Checking Highscores");
-   if (!SD.begin(4)) {
-    Serial.println("None Available!");
-    return;
-  }
-  Serial.println("We Found the Kush #420.");
   myFile = SD.open("highscore.txt", FILE_WRITE);
   if (myFile) {
     Serial.print("Are you worthy of the hall of fame?");
