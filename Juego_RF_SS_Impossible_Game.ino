@@ -1079,10 +1079,10 @@ void gameover(){
   }
   Game_Start();
   Start = false;
+  sd_highscore();
   while(!Start){
   buttonState2 = digitalRead(buttonPin2);
   buttonState = digitalRead(buttonPin);
-  sd_highscore();
     if(buttonState == LOW){
       Start = true;
       digitalWrite(PA_7,HIGH);
