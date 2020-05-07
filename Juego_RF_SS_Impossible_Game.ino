@@ -184,7 +184,7 @@ Game_Start();
   String text1 = "Impossible Game!";
   LCD_Print(text1, 30, 20, 2, 0xffff, 0xD082);
   
- xspike = 249;
+ xspike = 264;
  make_floor();
   String score = "Score:";
   LCD_Print(score, 200, 50, 2, 0x0000, 0xD082);
@@ -239,39 +239,40 @@ void loop() {
 //spikes
 
 xspike += spikescroll;
+xspike2 = xspike + 27;
+xspike3 = xspike2 + 27;
 if(Points<200){
-  if(xspike<=250 && xspike >= 0){
+  if(xspike<=265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>250&& xspike< 0){
-  xspike = 250;
+  else if(xspike>265&& xspike< 0){
+  xspike = 265;
   }
 }
 
 if(Points>=200 && Points<500){
-  xspike2 = xspike + 100;
-  if(xspike<292){
+  //xspike = 264;
+  if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>292){
-  xspike = 292;
+  else if(xspike>265){
+  xspike = 265;
   }
 
-  if(xspike2<292){
+  if(xspike2<265 && xspike<=264){
   LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike2+27,189,27,29,0x421b);   
   }
-  else if(xspike2>292){
-  xspike2 = xspike + 250;
-  }
+//  else if(xspike2>265){
+//  xspike2 = xspike + 100;
+//  }
   
 }
 
 if(Points>=500 /*&& Points<1000*/){
-  xspike2 = xspike + 250;
-  xspike3 = xspike2 + 250;
+  
   if(xspike<292){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
@@ -853,7 +854,7 @@ void jump(){
     
     if(grounded == false){
     if( yB<189 ){
-      fallRate = 4;
+      fallRate = 3;
       digitalWrite(PA_7,LOW);
       //FillRect(150, 200, 16, 39, 0x421b);
     }
@@ -1100,7 +1101,7 @@ void gameover(){
    String score = "Score:";
   LCD_Print(score, 200, 50, 2, 0x0000, 0xD082);
   Points = 0;
-  xspike = 249;
+  xspike = 264;
   yB = 187;
   yB2 = 184;
   
@@ -1202,7 +1203,7 @@ void winner(void){
 }
 
 void sd_highscore(){
-  myFile = SD.open("highscore.txt", FILE_WRITE);
+  myFile = SD.open("HIGHSC~1.txt", FILE_WRITE);
   if (myFile) {
     Serial.print("Are you worthy of the hall of fame?");
     myFile.println(Puntos);
@@ -1215,7 +1216,7 @@ void sd_highscore(){
   }
 
   // re-open the file for reading:
-  myFile = SD.open("highscore.txt");
+  myFile = SD.open("HIGHSC~1.txt");
   if (myFile) {
   Serial.println("Highscore List:");
    while (myFile.available()) {
