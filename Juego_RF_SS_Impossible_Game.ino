@@ -842,13 +842,58 @@ void jump(){
     yB+=fallRateInt; 
     if(grounded == true){
     if (buttonState == LOW && buttonStateOld == HIGH) {
-      fallRate = -100;
+      fallRate = -10;
       digitalWrite(PA_7,HIGH); 
-    }
+    
     fallRateInt= int(fallRate);
     yB+=fallRateInt; 
-    FillRect(150, yB+99, 16, 32, 0x421b);
+    FillRect(150, yB+10, 16, 32, 0x421b);
+    fallRate = -10;
+    fallRateInt= int(fallRate);
+    yB+=fallRateInt; 
+    FillRect(150, yB+10, 16, 32, 0x421b);
+
+    fallRate = -10;
+    fallRateInt= int(fallRate);
+    yB+=fallRateInt; 
+    FillRect(150, yB+10, 16, 32, 0x421b);
+
+    fallRate = -10;
+    fallRateInt= int(fallRate);
+    yB+=fallRateInt; 
+    FillRect(150, yB+10, 16, 32, 0x421b);
+
+    fallRate = -10;
+    fallRateInt= int(fallRate);
+    yB+=fallRateInt; 
+    FillRect(150, yB+10, 16, 32, 0x421b);
+
+    fallRate = -10;
+    fallRateInt= int(fallRate);
+    yB+=fallRateInt; 
+    FillRect(150, yB+10, 16, 32, 0x421b);
+
+    fallRate = -10;
+    fallRateInt= int(fallRate);
+    yB+=fallRateInt; 
+    FillRect(150, yB+10, 16, 32, 0x421b);
+
+    fallRate = -10;
+    fallRateInt= int(fallRate);
+    yB+=fallRateInt; 
+    FillRect(150, yB+10, 16, 32, 0x421b);
+
+    fallRate = -10;
+    fallRateInt= int(fallRate);
+    yB+=fallRateInt; 
+    FillRect(150, yB+10, 16, 32, 0x421b);
+
+    fallRate = -10;
+    fallRateInt= int(fallRate);
+    yB+=fallRateInt; 
+    FillRect(150, yB+10, 16, 32, 0x421b);
     
+    }
     }
 
     
@@ -858,10 +903,10 @@ void jump(){
       fallRate = 3;
       }
       else if(200<Points && Points <= 500){
-      fallRate = 2;
+      fallRate = 2.5;
       }
       else if(Points > 500){
-      fallRate = 1;
+      fallRate = 2;
       }
       digitalWrite(PA_7,LOW);
       //FillRect(150, 200, 16, 39, 0x421b);
@@ -884,10 +929,12 @@ void jump2(){
     if (buttonState == LOW && buttonStateOld == HIGH) {
       fallRate = -100;
       digitalWrite(PA_7,HIGH);
-    }
+    
     fallRateInt= int(fallRate);
     yB+=fallRateInt; 
     FillRect(150, yB+100, 16, 30, 0x421b);
+    }
+    
     }
 
      if(grounded2 == true){
