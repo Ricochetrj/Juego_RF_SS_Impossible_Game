@@ -261,7 +261,7 @@ if(Points>=200 && Points<500){
   xspike = 265;
   }
 
-  if(xspike2<265 && xspike<=264){
+  if(xspike2<265 && xspike<=292){
   LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike2+27,189,27,29,0x421b);   
   }
@@ -273,7 +273,7 @@ if(Points>=200 && Points<500){
 
 if(Points>=500 /*&& Points<1000*/){
   
-  if(xspike<292){
+  if(xspike<265){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
@@ -281,44 +281,44 @@ if(Points>=500 /*&& Points<1000*/){
   xspike = 292;
   }
 
-  if(xspike2<292){
+  if(xspike2<265 && xspike<=292){
   LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike2+27,189,27,29,0x421b);   
   }
-  else if(xspike2>292){
-  xspike2 = xspike + 250;
-  }
+//  else if(xspike2>292){
+//  xspike2 = xspike + 250;
+//  }
 
-  if(xspike3<292){
+  if(xspike3<265 && xspike2<=292){
   LCD_Sprite(xspike3,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike3+27,189,27,29,0x421b);   
   }
-  else if(xspike3>292){
-  xspike3 = xspike2 + 250;
-  }
+//  else if(xspike3>292){
+//  xspike3 = xspike2 + 50;
+//  }
 }
 ///Plataformas
-plane = 2;//random(0,3);
-if(plane == 0){
-LCD_Bitmap(xspike, 90, 32, 17, platform);
-FillRect(xspike+32,90,32,17,0x421b);
-}
-
-if(plane == 1){
-LCD_Bitmap(xspike, 120, 32, 17, platform);
-FillRect(xspike+32,120,32,17,0x421b);
-}
-
-if(plane == 2){
-LCD_Bitmap(xspike-60, 150, 32, 17, platform);
-FillRect(xspike-60+32,150,32,17,0x421b);
-}
+//plane = 2;//random(0,3);
+//if(plane == 0){
+//LCD_Bitmap(xspike, 90, 32, 17, platform);
+//FillRect(xspike+32,90,32,17,0x421b);
+//}
+//
+//if(plane == 1){
+//LCD_Bitmap(xspike, 120, 32, 17, platform);
+//FillRect(xspike+32,120,32,17,0x421b);
+//}
+//
+//if(plane == 2){
+//LCD_Bitmap(xspike-60, 150, 32, 17, platform);
+//FillRect(xspike-60+32,150,32,17,0x421b);
+//}
 
 FillRect(0,150,34,17,0x421b);
 //animaciones
 animate();
 
-collision();
+//collision();
 pausable = digitalRead(pause);
 if(pausable == HIGH){
 state = 1;
@@ -854,7 +854,15 @@ void jump(){
     
     if(grounded == false){
     if( yB<189 ){
+      if(Points <= 200){
       fallRate = 3;
+      }
+      else if(200<Points && Points <= 500){
+      fallRate = 2;
+      }
+      else if(Points > 500){
+      fallRate = 1;
+      }
       digitalWrite(PA_7,LOW);
       //FillRect(150, 200, 16, 39, 0x421b);
     }
@@ -1206,11 +1214,17 @@ void sd_highscore(){
   myFile = SD.open("HIGHSC~1.txt", FILE_WRITE);
   if (myFile) {
     Serial.print("Are you worthy of the hall of fame?");
+    if(Points >= 500){
     myFile.println(Puntos);
+    }
+    else{
+      Serial.print("Man, You are such a looser");
+    }
     // close the file:
     myFile.close();
     Serial.println("done.");
-    } else {
+    } 
+    else {
     // if the file didn't open, print an error:
     Serial.println("You Weren't Worthy ");
   }
