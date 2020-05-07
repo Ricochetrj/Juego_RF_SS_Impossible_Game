@@ -857,13 +857,13 @@ void jump(){
     if(grounded == false){
     if( yB<189 ){
       if(Points <= 200){
-      fallRate = 3;
+      fallRate = 5;
       }
       else if(200<Points && Points <= 500){
-      fallRate = 2.5;
+      fallRate = 3.5;
       }
       else if(Points > 500){
-      fallRate = 2;
+      fallRate = 3;
       }
       digitalWrite(PA_7,LOW);
       //FillRect(150, 200, 16, 39, 0x421b);
@@ -893,7 +893,7 @@ void jump(){
         break;
 
         case 2:
-         fallRate = -10;
+         fallRate = -20;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
          FillRect(150, yB+10, 16, 32, 0x421b);
@@ -901,7 +901,7 @@ void jump(){
         break;
 
         case 3:
-         fallRate = -10;
+         fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
          FillRect(150, yB+10, 16, 32, 0x421b);
@@ -909,7 +909,7 @@ void jump(){
         break;
 
         case 4:
-         fallRate = -10;
+         fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
          FillRect(150, yB+10, 16, 32, 0x421b);
