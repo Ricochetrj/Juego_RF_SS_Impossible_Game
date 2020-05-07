@@ -848,106 +848,9 @@ void jump(){
       jumpen = 1;
     }
     }
-
-    if (jumpen = 1){
-      switch (jumpstate){
-        case 0:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-        case 1:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-        case 2:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-        case 3:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-        case 4:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-        case 5:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-      case 6:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-        case 7:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-        case 8:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-        case 9:
-         fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
-         fallRateInt= int(fallRate);
-         yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
-         jumpstate ++;
-        break;
-
-        default:
-        jumpen = 0;
-        jumpstate = 0;
     
-      
-    }
-    }
+
+   
     
   
     
@@ -969,6 +872,98 @@ void jump(){
     
     fallRateInt= int(fallRate);
     yB+=fallRateInt; 
+    }
+     if (jumpen == 1){
+      switch (jumpstate){
+        case 0:
+         fallRate = -10;
+         digitalWrite(PA_7,HIGH); 
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 1:
+         fallRate = -10;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 2:
+         fallRate = -10;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 3:
+         fallRate = -10;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 4:
+         fallRate = -10;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 5:
+         fallRate = -10; 
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+      case 6:
+         fallRate = -10; 
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 7:
+         fallRate = -10;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 8:
+         fallRate = -10; 
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 9:
+         fallRate = -10;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpen = 0;
+         jumpstate= 0;
+        break;
+
+  
+        default:
+        jumpen = 0;
+        jumpstate = 0;
+      }
+      
+    
     }
 }
 ///////////////////////////////////
