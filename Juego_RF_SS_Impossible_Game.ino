@@ -49,9 +49,11 @@ void V_line(unsigned int x, unsigned int y, unsigned int l, unsigned int c);
 void Rect(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned int c);
 void FillRect(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned int c);
 void LCD_Print(String text, int x, int y, int fontSize, int color, int background);
-
 void LCD_Bitmap(unsigned int x, unsigned int y, unsigned int width, unsigned int height, unsigned char bitmap[]);
 void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[],int columns, int index, char flip, char offset);
+//***************************************************************************************************************************************
+// Prototipos de Funciones Propias
+//***************************************************************************************************************************************
 void make_floor();
 void Game_Start();
 void gameover();
@@ -64,98 +66,123 @@ void sd_highscore();
 void plataforma();
 void pausa();
 void flash();
-
+//***************************************************************************************************************************************
+// Sprites Importados del PROGMEM
+//***************************************************************************************************************************************
 extern uint8_t fondo[];
 extern uint8_t sans[];
 extern uint8_t papyrus[];
 extern uint8_t logo[];
 //***************************************************************************************************************************************
-// Variables
+// Variables de Musica
 //***************************************************************************************************************************************
-int jumps = PA_7;
+const int jumps = PA_7;
+const int pausemusic = PC_5; 
+const int musica = PE_3; 
+//***************************************************************************************************************************************
+// Variables de Los Botones
+//***************************************************************************************************************************************
+uint8_t buttonStateOld = 0;
+const int buttonPin = PA_6;  
+uint8_t buttonState = 0; 
+const int buttonPin2 = PE_2;  
+uint8_t buttonState2; 
+uint8_t buttonStateOld2 = 0;
+const int pause = PC_4; 
+uint8_t pausable = 0; 
+uint8_t Start=false;
+//***************************************************************************************************************************************
+// Variables de Posicionamiento de Los Jugadores
+//***************************************************************************************************************************************
 uint8_t yB = 189;
 uint8_t yB2 = 185;
 uint8_t fallRateInt = 0;
 float fallRate = 0;
 uint8_t fallRateInt2 = 0;
 float fallRate2 = 0;
-///Botones para los jugadores 
-uint8_t buttonStateOld = 0;
-const int buttonPin = PA_6;  
-uint8_t buttonState = 0; 
-
-const int buttonPin2 = PE_2;  
-uint8_t buttonState2; 
-uint8_t buttonStateOld2 = 0;
-
-const int pause = PC_4; 
-uint8_t pauseOld = 0;
-
-const int pausemusic = PC_5; 
-uint8_t pausable = 0; 
-uint8_t state = 0;
-const int musica = PE_3; 
+//***************************************************************************************************************************************
+// Variables de Colisiones
+//***************************************************************************************************************************************
+/*Jugador 2*/
 uint8_t xspike = 265;
 uint8_t xspike2; 
 uint8_t xspike3; 
 uint8_t spikescroll = -3;
-uint8_t animc = 0;
-uint8_t animsp = 0;
-uint8_t animchonk = 0;
-uint8_t animjerry = 0;
-uint8_t animcstate = 0;
-uint8_t animspstate = 0;
-uint16_t animsp2= 0;
-uint8_t spikeon = 0;
-uint8_t Start=false;
-uint16_t Points = 0;
-uint8_t grounded = true;
-uint8_t plane;
-uint8_t Multiplayer;
-uint8_t grounded2 = true;
-uint8_t cube2y1 = 0;
-uint8_t cube2y2 = 0;
-uint8_t cube2x1 = 0;
-uint8_t cube2x2 = 0;
-uint8_t p1w = 0;
-uint8_t p2w = 0;
-uint8_t platx1 = 0;
-uint8_t platx2 = 0;
-uint8_t platy1 = 0;
-String Puntos;
-
+/*Jugador 1*/
 uint8_t cubey1 = yB;
 uint8_t cubey2 = yB+30;
 uint8_t cubex1 = 150;
 uint8_t cubex2 = 166;
+/*Jugador 2*/
+uint8_t cube2y1 = 0;
+uint8_t cube2y2 = 0;
+uint8_t cube2x1 = 0;
+uint8_t cube2x2 = 0;
+/*Plataformas*/
+uint8_t platx1 = 0;
+uint8_t platx2 = 0;
+uint8_t platy1 = 0;
 
+//***************************************************************************************************************************************
+// Variables de Saltos
+//***************************************************************************************************************************************
+uint8_t grounded = true;
+uint8_t grounded2 = true;
 uint8_t jumpstate = 0;
 uint8_t jumpen = 0;
-
 uint8_t jumpstate2 = 0;
 uint8_t jumpen2 = 0;
-uint8_t introanim= 0;
-uint8_t introanimstate = 0;
 uint8_t fspeed= 0;
+//***************************************************************************************************************************************
+// Variables de Modo de Juego
+//***************************************************************************************************************************************
+uint8_t Multiplayer;
+uint16_t Points = 0;
+uint8_t p1w = 0;
+uint8_t p2w = 0;
+String Puntos;
+uint8_t state = 0;
+//***************************************************************************************************************************************
+// Variables de Almacenamiento en la SD
+//***************************************************************************************************************************************
 File myFile;
 //***************************************************************************************************************************************
-// Inicialización
+// Variables de Animaciones
 //***************************************************************************************************************************************
+uint8_t animc = 0;
+uint8_t animsp = 0;
+uint8_t animcstate = 0;
+uint8_t animspstate = 0;
+uint8_t introanim= 0;
+uint8_t introanimstate = 0;
+
+
+
+
+
+
+
 void setup() {
+//***************************************************************************************************************************************
+// Inicialización de Los Botones
+//***************************************************************************************************************************************
   pinMode(PA_7, OUTPUT);
   pinMode(musica, OUTPUT);
-  pinMode(pausemusic, OUTPUT);
-  //pinMode(PA_6, INPUT);   
+  pinMode(pausemusic, OUTPUT);   
   pinMode(buttonPin, INPUT_PULLUP); 
   pinMode(buttonPin2, INPUT_PULLUP);
   pinMode(pause, INPUT_PULLUP); 
+//***************************************************************************************************************************************
+// Inicialización de la LCD
+//***************************************************************************************************************************************
   SysCtlClockSet(SYSCTL_SYSDIV_2_5|SYSCTL_USE_PLL|SYSCTL_OSC_MAIN|SYSCTL_XTAL_16MHZ);
   Serial.begin(9600);
   GPIOPadConfigSet(GPIO_PORTB_BASE, 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD_WPU);
-  Serial.println("Inicio");
   LCD_Init();
   LCD_Clear(0x00);
-  //////
+//***************************************************************************************************************************************
+// De la SD
+//***************************************************************************************************************************************
   Serial.begin(9600);
   SPI.setModule(0);
   while (!Serial) {
@@ -477,7 +504,7 @@ if(Points>=2000 && Points<2250){
 /*animaciones/////////////////////////////////////////////////////////////////////////////////////////////////////*/
 animate();
 
-//collision();
+collision();
 pausable = digitalRead(pause);
 if(pausable == HIGH){
 state = 1;
