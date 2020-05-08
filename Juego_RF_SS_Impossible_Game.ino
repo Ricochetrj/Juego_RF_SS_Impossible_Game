@@ -63,9 +63,9 @@ void jump2();
 void sd_highscore();
 void plataforma();
 void pausa();
+void flash();
+
 extern uint8_t fondo[];
-//extern uint8_t chonk[];
-//extern uint8_t cubo2[];
 extern uint8_t sans[];
 extern uint8_t papyrus[];
 extern uint8_t logo[];
@@ -94,7 +94,7 @@ const int pausemusic = PC_5;
 uint8_t pausable = 0; 
 uint8_t state = 0;
 const int musica = PE_3; 
-uint8_t xspike = 200;
+uint8_t xspike = 265;
 uint8_t xspike2; 
 uint8_t xspike3; 
 uint8_t spikescroll = -3;
@@ -133,6 +133,8 @@ uint8_t jumpen = 0;
 
 uint8_t jumpstate2 = 0;
 uint8_t jumpen2 = 0;
+uint8_t introanim= 0;
+uint8_t introanimstate = 0;
 
 File myFile;
 //***************************************************************************************************************************************
@@ -172,10 +174,12 @@ Game_Start();
  while(!Start){
   buttonState = digitalRead(buttonPin);
   buttonState2 = digitalRead(PE_2);
-  animate();
+  introanim ++;
+  introanimstate = (introanim/35)%4;
+  LCD_Sprite(50,50,16,30,sans,4,introanimstate,0,0);
+  LCD_Sprite(250,50,20,40,papyrus,4,introanimstate,1,0);
     if(buttonState == LOW){
       Start = true;
-      //LCD_Sprite(55,170,28,35,chonk,14,0,0,0);
       digitalWrite(PA_7,HIGH);
       Multiplayer = 0;
     }
@@ -210,9 +214,6 @@ void loop() {
   Points= Points +0.001;
   Puntos = String(Points);
   LCD_Print(Puntos, 200, 70, 2, 0x0000, 0xD082);
-  xspike2 = xspike + 100;
-  xspike3 = xspike2 + 200;
-
   if((cubex2>=platx1) && (cubex1<=platx2) &&(cubey1>=platy1)){
     grounded = true;
   }
@@ -837,8 +838,7 @@ void Game_Start(){
   LCD_Print(Start2, 10, 180, 1, 0xff00, 0x0000);
   LCD_Print(Player1, 100, 130, 2, 0xffff, 0xD077);
   LCD_Print(Player2, 100, 180, 2, 0xffff, 0xC088);
-  //LCD_Sprite(55,120,28,35,chonk,14,animchonk,0,0);
-  xspike = 250;
+  xspike = 265;
   
 }
 ////////////////////////////////////////
@@ -899,7 +899,7 @@ void jump(){
          fallRate = -20;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+20, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -907,7 +907,7 @@ void jump(){
          fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+15, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -915,7 +915,7 @@ void jump(){
          fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+15, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1006,7 +1006,7 @@ void jump2(){
          fallRate = -20;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+20, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1014,7 +1014,7 @@ void jump2(){
          fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+15, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1022,7 +1022,7 @@ void jump2(){
          fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+15, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1526,7 +1526,7 @@ platx1 = xspike-32;
 platx2 = xspike;
 platy1 = 90;
  }
- void pausa(){
+void pausa(){
   
    Start = false;
   while(!Start){
