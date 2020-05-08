@@ -999,7 +999,7 @@ void jump(){
    
     
   
-    
+    uint8_t fspeed;
     if(grounded == false){
     if( yB<189 ){
       if(Points <= 200){
@@ -1008,16 +1008,39 @@ void jump(){
       else if(200<Points && Points <= 500){
       fallRate = 3.5;
       }
-      else if(Points > 500){
+      else if(500<Points && Points <= 750){
       fallRate = 3;
       }
+      else if(500<Points && Points <= 750){
+      fallRate = 2.3;
+      }
+      else if(750<Points && Points <= 1000){
+      fallRate = 7;
+      }
+      else if(1000<Points && Points <= 1250){
+      fallRate = 4;
+      }
+      else if(1250<Points && Points <= 1500){
+      fallRate = 7;
+      }
+      else if(1500<Points && Points <= 1750){
+      fallRate = 4;
+      }
+      else if(1750<Points && Points <= 2000){
+      fallRate = 4;
+      }
+      else if(2000<Points && Points <= 2250){
+      fallRate = 7;
+      }
       digitalWrite(PA_7,LOW);
-      //FillRect(150, 200, 16, 39, 0x421b);
     }
-    FillRect(150, yB-4, 16, 4, 0x421b);
-    
+    fspeed = fallRate;
+    FillRect(150, yB-fspeed, 16, fspeed, 0x421b);
     fallRateInt= int(fallRate);
-    yB+=fallRateInt; 
+    yB+=fallRateInt;
+    if(yB+16>216){
+      yB = 189; 
+    }
     }
      if (jumpen == 1){
       switch (jumpstate){
