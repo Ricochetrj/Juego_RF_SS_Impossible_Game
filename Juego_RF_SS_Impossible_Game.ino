@@ -131,6 +131,9 @@ uint8_t cubex2 = 166;
 uint8_t jumpstate = 0;
 uint8_t jumpen = 0;
 
+uint8_t jumpstate2 = 0;
+uint8_t jumpen2 = 0;
+
 File myFile;
 //***************************************************************************************************************************************
 // Inicialización
@@ -976,25 +979,203 @@ void jump2(){
     yB2+=fallRateInt2; 
     if(grounded == true){
     if (buttonState == LOW && buttonStateOld == HIGH) {
-      fallRate = -100;
-      digitalWrite(PA_7,HIGH);
-    
-    fallRateInt= int(fallRate);
-    yB+=fallRateInt; 
-    FillRect(150, yB+100, 16, 30, 0x421b);
+      jumpen = 1;
+      }
     }
     
+      if (jumpen == 1){
+      switch (jumpstate){
+        case 0:
+         fallRate = -10;
+         digitalWrite(PA_7,HIGH); 
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 1:
+         fallRate = -10;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 2:
+         fallRate = -20;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 3:
+         fallRate = -15;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 4:
+         fallRate = -15;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 5:
+         fallRate = -10; 
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+      case 6:
+         fallRate = -10; 
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 7:
+         fallRate = -10;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 8:
+         fallRate = -10; 
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpstate ++;
+        break;
+
+        case 9:
+         fallRate = -10;
+         fallRateInt= int(fallRate);
+         yB+=fallRateInt; 
+         FillRect(150, yB+10, 16, 32, 0x421b);
+         jumpen = 0;
+         jumpstate= 0;
+        break;
+
+  
+        default:
+        jumpen = 0;
+        jumpstate = 0;
+      }
+      
+    
     }
+    
+    
+    
 
      if(grounded2 == true){
       if (buttonState2 == LOW && buttonStateOld2 == HIGH) {
-      fallRate2 = -100;
-      digitalWrite(PA_7,HIGH);
+      jumpen2 = 1;
     }
-      fallRateInt2= int(fallRate2);
-      yB2+=fallRateInt2; 
-      FillRect(110, yB2+100, 20, 40, 0x421b);
      }
+     if (jumpen2 == 1){
+      switch (jumpstate2){
+        case 0:
+         fallRate2 = -10;
+         digitalWrite(PA_7,HIGH); 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+10, 20, 40, 0x421b);
+         jumpstate2 ++;
+        break;
+
+        case 1:
+         fallRate2 = -20; 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+20, 20, 40, 0x421b);
+         jumpstate2 ++;
+        break;
+
+        case 2:
+         fallRate2 = -15; 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+15, 20, 40, 0x421b);
+         jumpstate2 ++;
+        break;
+
+        case 3:
+         fallRate2 = -15; 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+15, 20, 40, 0x421b);
+         jumpstate2 ++;
+        break;
+
+        case 4:
+         fallRate2 = -15; 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+15, 20, 40, 0x421b);
+         jumpstate2 ++;
+        break;
+
+        case 5:
+         fallRate2 = -10; 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+10, 20, 40, 0x421b);
+         jumpstate2 ++;
+        break;
+
+      case 6:
+         fallRate2 = -10; 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+10, 20, 40, 0x421b);
+         jumpstate2 ++;
+        break;
+
+        case 7:
+         fallRate2 = -10; 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+10, 20, 40, 0x421b);
+         jumpstate2 ++;
+        break;
+
+        case 8:
+         fallRate2 = -10; 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+10, 20, 40, 0x421b);
+         jumpstate2 ++;
+        break;
+
+        case 9:
+         fallRate2 = -10; 
+         fallRateInt2= int(fallRate2);
+         yB2+=fallRateInt2; 
+         FillRect(110, yB2+10, 20, 40, 0x421b);
+         jumpen2 = 0;
+         jumpstate2= 0;
+        break;
+
+  
+        default:
+        jumpen2 = 0;
+        jumpstate2 = 0;
+      }
+      
+    
+    }
 
     
     if(grounded == false){
