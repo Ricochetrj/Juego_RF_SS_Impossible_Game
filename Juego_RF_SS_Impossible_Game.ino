@@ -66,6 +66,7 @@ void sd_highscore();
 void plataforma();
 void pausa();
 void flash();
+void Bitmap_SD();
 //***************************************************************************************************************************************
 // Sprites Importados del PROGMEM
 //***************************************************************************************************************************************
@@ -146,6 +147,7 @@ uint8_t state = 0;
 // Variables de Almacenamiento en la SD
 //***************************************************************************************************************************************
 File myFile;
+File root;
 //***************************************************************************************************************************************
 // Variables de Animaciones
 //***************************************************************************************************************************************
@@ -244,6 +246,7 @@ Game_Start();
 
 void loop() {
  if(Multiplayer == 0){
+  FillRect(0,189,27,32,0x421b); 
   make_floor();
   Points= Points +0.001;
   Puntos = String(Points);
@@ -281,17 +284,20 @@ void loop() {
         xspike = 265;
         }
     }
-  if(Points == 200){
+  if(Points == 175){
+      FillRect(xspike,189,27,29,0x421b);
       xspike = 265;
       FillRect(0,189,319,29,0x421b);   
       String kush = "Level 2";
       LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
       H_line(70,85,120,0x000);
+      FillRect(xspike,189,27,29,0x421b);
       }
   if(Points>=200 && Points<500){
     if(xspike<265 && xspike >= 0){
       LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
-      FillRect(xspike+27,189,27,29,0x421b);   
+      FillRect(xspike+27,189,27,29,0x421b);
+      FillRect(xspike-54,189,54,29,0x421b);   
       }
     else if(xspike>265&& xspike< 0){
       xspike = 265;
@@ -482,6 +488,19 @@ if(Points>=2000 && Points<2250){
   FillRect(xspike2+27,189,27,29,0x421b);   
   }
 }
+
+if(Points == 2250){ 
+  FillRect(0,189,319,29,0x421b);   
+  String kush = "WIN";
+  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+  H_line(70,85,120,0x0FF0);
+}
+if(Points>=2250){
+  String kusha = "Winner Winner Chicken Dinner";
+  LCD_Print(kusha, 10, 150, 2, 0xffff, 0x421b);
+  delay(2000);
+  gameover();
+}
 animate();
 collision();
 pausable = digitalRead(pause);
@@ -500,6 +519,7 @@ pausa();
 
 
 if(Multiplayer == 1){
+  FillRect(0,189,27,32,0x421b); 
    make_floor();
   Points= Points +0.001;
   Puntos = String(Points);
@@ -1756,11 +1776,14 @@ void gameover(){
   FillRect(0, 0, 319, 219, 0x421b);
   while(!Start){
     digitalWrite(musica,HIGH);
+   Bitmap_SD(0,0,320,240,"nepe");
   String over = "Git Gud!";
   LCD_Print(over, 100, 100, 2, 0xffff, 0xD082);
   String again = "Press Jump to Start again";
   LCD_Print(again, 100, 150, 1, 0xf420, 0x0000);
+  highscore();
   make_floor();
+  
   buttonState = digitalRead(buttonPin);
     if(buttonState == LOW){
       Start = true;
@@ -1815,6 +1838,7 @@ void winner(void){
     digitalWrite(musica,HIGH);
   String text1 = "Player 1 Wins";
   LCD_Print(text1, 30, 20, 2, 0xffff, 0xD082);
+  highscore();
   String again = "Press Jump to Start again";
   LCD_Print(again, 100, 150, 1, 0xf420, 0x0000);
   make_floor();
@@ -1872,6 +1896,7 @@ void winner(void){
     digitalWrite(musica,HIGH);
   String text1 = "Player 2 Wins";
   LCD_Print(text1, 30, 20, 2, 0xffff, 0xD082);
+  highscore();
   String again = "Press Jump to Start again";
   LCD_Print(again, 100, 150, 1, 0xf420, 0x0000);
   make_floor();
@@ -1925,7 +1950,7 @@ void sd_highscore(){
   myFile = SD.open("HIGHSC~1.txt", FILE_WRITE);
   if (myFile) {
     Serial.print("Are you worthy of the hall of fame?");
-    if(Points >= 500){
+    if(Points >= 300){
     myFile.println(Puntos);
     }
     else{
@@ -1978,3 +2003,9 @@ void pausa(){
     //pauseOld = pausable;
   }
  }
+
+void highscore(){
+  String text2 = "Your Score:";
+  LCD_Print(text2, 30, 60, 2, 0xf420, 0xB066);
+  LCD_Print(Puntos, 210, 60, 2, 0xffff, 0xCD69);
+}
