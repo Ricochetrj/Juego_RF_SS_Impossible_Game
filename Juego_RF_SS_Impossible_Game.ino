@@ -260,63 +260,47 @@ void loop() {
   Points ++;
   Serial.println(Points);
   buttonState = digitalRead(buttonPin);
-    LCD_Sprite(150,yB,16,30,sans,4,animc,0,0);
+  LCD_Sprite(150,yB,16,30,sans,4,animc,0,0);
+  jump();    
+  buttonStateOld = buttonState;
   
-
-  
-
-  
-  FillRect(0, 187, 35, 30, 0x421b);
- //spikescroll -= .2;
-  //la velocidad a la que se mueven los spikes acelera
-
-  
-////////////////////////////////////////
-
- ///Jump
-   
-    jump();    
-    buttonStateOld = buttonState;
-    
-//spikes
-
-xspike += spikescroll;
-xspike2 = xspike + 27;
-xspike3 = xspike2 + 27;
-if(Points<10){
-String kush = "Level 1";
-LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
-H_line(70,85,120,0x000);
-}
-if(Points<200){
-  if(xspike<=265 && xspike >= 0){
-  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
-  FillRect(xspike+27,189,27,29,0x421b);   
-  }
-  else if(xspike>265&& xspike< 0){
-  xspike = 265;
-  }
-}
-if(Points == 200){
-  xspike = 265;
-  FillRect(0,189,319,29,0x421b);   
-  String kush = "Level 2";
-  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
-  H_line(70,85,120,0x000);
-}
-if(Points>=200 && Points<500){
-  if(xspike<265 && xspike >= 0){
-  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
-  FillRect(xspike+27,189,27,29,0x421b);   
-  }
-  else if(xspike>265){
-  xspike = 265;
-  }
+  xspike += spikescroll;
+  xspike2 = xspike + 27;
+  xspike3 = xspike2 + 27;
+  if(Points<10){
+    String kush = "Level 1";
+    LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+    H_line(70,85,120,0x000);
+    }
+  if(Points<200){
+    if(xspike<=265 && xspike >= 0){
+      LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+      FillRect(xspike+27,189,27,29,0x421b);   
+      }
+      else if(xspike>265&& xspike< 0){
+        xspike = 265;
+        }
+    }
+  if(Points == 200){
+      xspike = 265;
+      FillRect(0,189,319,29,0x421b);   
+      String kush = "Level 2";
+      LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+      H_line(70,85,120,0x000);
+      }
+  if(Points>=200 && Points<500){
+    if(xspike<265 && xspike >= 0){
+      LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+      FillRect(xspike+27,189,27,29,0x421b);   
+      }
+    else if(xspike>265&& xspike< 0){
+      xspike = 265;
+      }
 
   if(xspike2<265 && xspike<=292){
-  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
-  FillRect(xspike2+27,189,27,29,0x421b);   
-  }
+    LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+    FillRect(xspike2+27,189,27,29,0x421b);   
+    }
   
 }
 if(Points == 500){
@@ -332,17 +316,14 @@ if(Points>=500 && Points<750){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>292){
-  xspike = 292;
+  else if(xspike>265&& xspike< 0){
+  xspike = 265;
   }
 
   if(xspike2<265 && xspike<=292){
   LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike2+27,189,27,29,0x421b);   
   }
-//  else if(xspike2>292){
-//  xspike2 = xspike + 250;
-//  }
 
   if(xspike3<265 && xspike2<=292){
   LCD_Sprite(xspike3,189,27,29,spikes,7,animsp,0,0);
@@ -362,7 +343,7 @@ H_line(70,85,120,0x000);
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>265){
+  else if(xspike>265&& xspike< 0){
   xspike = 265;
   }
 
@@ -384,7 +365,7 @@ if(Points>=1000 && Points<1250){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>265){
+  else if(xspike>265&& xspike< 0){
   xspike = 265;
   }
 
@@ -408,7 +389,7 @@ if(Points>=1250 && Points<1500){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>265){
+  else if(xspike>265&& xspike< 0){
   xspike = 265;
   }
 
@@ -420,8 +401,8 @@ if(Points>=1250 && Points<1500){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>292){
-  xspike = 292;
+  else if(xspike>265&& xspike< 0){
+  xspike = 265;
   }
 
   if(xspike2<265 && xspike<=292){
@@ -456,7 +437,7 @@ if(Points>=1500 && Points<1750){
  
 if(Points == 1750){
   xspike = 265;
-  FillRect(0,189,319,29,0x421b);   
+  FillRect(0,189,319,32,0x421b);   
   String kush = "level 8";
   LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
   H_line(70,85,120,0x000);
@@ -468,7 +449,7 @@ if(Points>=1750 && Points<2000){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>265){
+  else if(xspike>265&& xspike< 0){
   xspike = 265;
   }
 
@@ -492,7 +473,7 @@ if(Points>=2000 && Points<2250){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>265){
+  else if(xspike>265&& xspike< 0){
   xspike = 265;
   }
 
@@ -501,9 +482,7 @@ if(Points>=2000 && Points<2250){
   FillRect(xspike2+27,189,27,29,0x421b);   
   }
 }
-/*animaciones/////////////////////////////////////////////////////////////////////////////////////////////////////*/
 animate();
-
 collision();
 pausable = digitalRead(pause);
 if(pausable == HIGH){
