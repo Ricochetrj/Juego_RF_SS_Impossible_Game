@@ -276,7 +276,6 @@ if(Points == 200){
   H_line(70,85,120,0x000);
 }
 if(Points>=200 && Points<500){
-  //xspike = 264;
   if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
@@ -350,7 +349,7 @@ String kush = "Level 5";
 LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
 H_line(70,85,120,0x000);
 }
-if(Points>=1000){
+if(Points>=1000 && Points<1250){
   xspike2 = xspike + 81;
   if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
@@ -366,26 +365,114 @@ if(Points>=1000){
   }
 }
 
+if(Points == 1250){
+xspike = 265;
+FillRect(0,189,319,29,0x421b);   
+String kush = "Level 6";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000);
+}
+if(Points>=1250 && Points<1500){
+  xspike2 = xspike + 57;
+  xspike3 = xspike2 + 57;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
 
-///Plataformas
-//plane = 2;//random(0,3);
-//if(plane == 0){
-//LCD_Bitmap(xspike, 90, 32, 17, platform);
-//FillRect(xspike+32,90,32,17,0x421b);
-//}
-//
-//if(plane == 1){
-//LCD_Bitmap(xspike, 120, 32, 17, platform);
-//FillRect(xspike+32,120,32,17,0x421b);
-//}
-//
-//if(plane == 2){
-//LCD_Bitmap(xspike-60, 150, 32, 17, platform);
-//FillRect(xspike-60+32,150,32,17,0x421b);
-//}
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+  if(xspike<265){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>292){
+  xspike = 292;
+  }
 
-FillRect(0,150,34,17,0x421b);
-//animaciones
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+
+  if(xspike3<265 && xspike2<=292){
+  LCD_Sprite(xspike3,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike3+27,189,27,29,0x421b);   
+  }
+}
+
+if(Points == 1500){
+  xspike = 265;
+  FillRect(0,189,319,29,0x421b);   
+  String kush = "level 7";
+  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+  H_line(70,85,120,0x000);
+}
+
+if(Points>=1500 && Points<1750){
+  spikescroll = -3.5
+  if(xspike<=265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265&& xspike< 0){
+  xspike = 265;
+  }
+}
+ 
+if(Points == 1750){
+  xspike = 265;
+  FillRect(0,189,319,29,0x421b);   
+  String kush = "level 8";
+  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+  H_line(70,85,120,0x000);
+}
+
+if(Points>=1750 && Points<2000){
+  xspike2 = xpike + 27;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+}
+
+if(Points == 2000){
+  xspike = 265;
+  FillRect(0,189,319,29,0x421b);   
+  String kush = "level 9";
+  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+  H_line(70,85,120,0x000);
+}
+
+if(Points>=2000 && Points<2250){
+  xspike2 = xpike + 54;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+}
+/*animaciones/////////////////////////////////////////////////////////////////////////////////////////////////////*/
 animate();
 
 //collision();
@@ -735,14 +822,6 @@ void Rect(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsign
 //***************************************************************************************************************************************
 // Función para dibujar un rectángulo relleno - parámetros ( coordenada x, cordenada y, ancho, alto, color)
 //***************************************************************************************************************************************
-//void FillRect(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned int c) {
-//  unsigned int i;
-//  for (i = 0; i < h; i++) {
-//    H_line(x  , y  , w, c);
-//    H_line(x  , y+i, w, c);
-//  }
-//}
-
 void FillRect(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned int c) {
   LCD_CMD(0x02c); // write_memory_start
   digitalWrite(LCD_RS, HIGH);
