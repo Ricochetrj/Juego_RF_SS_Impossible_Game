@@ -175,9 +175,15 @@ Game_Start();
   buttonState = digitalRead(buttonPin);
   buttonState2 = digitalRead(PE_2);
   introanim ++;
-  introanimstate = (introanim/35)%4;
+  introanimstate = (introanim/10)%4;
   LCD_Sprite(50,50,16,30,sans,4,introanimstate,0,0);
   LCD_Sprite(250,50,20,40,papyrus,4,introanimstate,1,0);
+  LCD_Bitmap(40, 50+31, 32, 17, platform);
+  LCD_Bitmap(240, 50+40, 32, 17, platform);
+  String kush = "P1";
+  LCD_Print(kush, 50-15, 20, 2, 0xffff, 0x421b);
+  String wack = "P2";
+  LCD_Print(wack, 250, 20, 2, 0xffff, 0x421b);
     if(buttonState == LOW){
       Start = true;
       digitalWrite(PA_7,HIGH);
@@ -257,7 +263,14 @@ if(Points<200){
   xspike = 265;
   }
 }
-
+if(Points == 200){
+  FillRect(70,70,70,40,0x421b);
+  xspike = 265;
+  FillRect(0,189,265,29,0x421b);   
+  String kush = "Level 2";
+  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+  H_line(70,100,120,0x000);
+}
 if(Points>=200 && Points<500){
   //xspike = 264;
   if(xspike<265 && xspike >= 0){
@@ -272,13 +285,13 @@ if(Points>=200 && Points<500){
   LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike2+27,189,27,29,0x421b);   
   }
-//  else if(xspike2>265){
-//  xspike2 = xspike + 100;
-//  }
   
 }
-
-if(Points>=500 /*&& Points<1000*/){
+if(Points == 500){
+  xspike = 265;
+  FillRect(0,189,265,29,0x421b); 
+}
+if(Points>=500 && Points<750){
   
   if(xspike<265){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
@@ -300,10 +313,48 @@ if(Points>=500 /*&& Points<1000*/){
   LCD_Sprite(xspike3,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike3+27,189,27,29,0x421b);   
   }
-//  else if(xspike3>292){
-//  xspike3 = xspike2 + 50;
-//  }
 }
+if(Points == 750){
+  xspike = 265;
+  FillRect(0,189,265,29,0x421b); 
+}
+  if(Points>=750 && Points<1000){
+  xspike2 = xspike + 54;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+}
+if(Points == 1000){
+  xspike = 265;
+  FillRect(0,189,265,29,0x421b); 
+  FillRect(265,189,54,29,0x421b); 
+}
+if(Points>=1000){
+  xspike2 = xspike + 81;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+}
+
+
 ///Plataformas
 //plane = 2;//random(0,3);
 //if(plane == 0){
@@ -1368,6 +1419,16 @@ void gameover(){
   while(!Start){
   buttonState2 = digitalRead(buttonPin2);
   buttonState = digitalRead(buttonPin);
+  introanim ++;
+  introanimstate = (introanim/10)%4;
+  LCD_Sprite(50,50,16,30,sans,4,introanimstate,0,0);
+  LCD_Sprite(250,50,20,40,papyrus,4,introanimstate,1,0);
+  LCD_Bitmap(40, 50+31, 32, 17, platform);
+  LCD_Bitmap(240, 50+40, 32, 17, platform);
+  String kush = "P1";
+  LCD_Print(kush, 50-15, 20, 2, 0xffff, 0x421b);
+  String wack = "P2";
+  LCD_Print(wack, 250, 20, 2, 0xffff, 0x421b);
     if(buttonState == LOW){
       Start = true;
       digitalWrite(PA_7,HIGH);
@@ -1414,6 +1475,16 @@ void winner(void){
   while(!Start){
   buttonState2 = digitalRead(buttonPin2);
   buttonState = digitalRead(buttonPin);
+  introanim ++;
+  introanimstate = (introanim/10)%4;
+  LCD_Sprite(50,50,16,30,sans,4,introanimstate,0,0);
+  LCD_Sprite(250,50,20,40,papyrus,4,introanimstate,1,0);
+  LCD_Bitmap(40, 50+31, 32, 17, platform);
+  LCD_Bitmap(240, 50+40, 32, 17, platform);
+  String kush = "P1";
+  LCD_Print(kush, 50-15, 20, 2, 0xffff, 0x421b);
+  String wack = "P2";
+  LCD_Print(wack, 250, 20, 2, 0xffff, 0x421b);
     if(buttonState == LOW){
       Start = true;
       digitalWrite(PA_7,HIGH);
@@ -1461,6 +1532,16 @@ void winner(void){
   while(!Start){
   buttonState2 = digitalRead(buttonPin2);
   buttonState = digitalRead(buttonPin);
+  introanim ++;
+  introanimstate = (introanim/10)%4;
+  LCD_Sprite(50,50,16,30,sans,4,introanimstate,0,0);
+  LCD_Sprite(250,50,20,40,papyrus,4,introanimstate,1,0);
+  LCD_Bitmap(40, 50+31, 32, 17, platform);
+  LCD_Bitmap(240, 50+40, 32, 17, platform);
+  String kush = "P1";
+  LCD_Print(kush, 50-15, 20, 2, 0xffff, 0x421b);
+  String wack = "P2";
+  LCD_Print(wack, 250, 20, 2, 0xffff, 0x421b);
     if(buttonState == LOW){
       Start = true;
       digitalWrite(PA_7,HIGH);
