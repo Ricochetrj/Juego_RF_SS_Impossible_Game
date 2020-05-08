@@ -89,6 +89,7 @@ uint8_t buttonState2;
 uint8_t buttonStateOld2 = 0;
 
 const int pause = PC_4; 
+uint8_t pauseOld = 0;
 
 const int pausemusic = PC_5; 
 uint8_t pausable = 0; 
@@ -415,7 +416,7 @@ if(Points == 1500){
 }
 
 if(Points>=1500 && Points<1750){
-  spikescroll = -3.5
+  spikescroll = -4;
   if(xspike<=265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
@@ -434,7 +435,7 @@ if(Points == 1750){
 }
 
 if(Points>=1750 && Points<2000){
-  xspike2 = xpike + 27;
+  xspike2 = xspike + 27;
   if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
@@ -458,7 +459,7 @@ if(Points == 2000){
 }
 
 if(Points>=2000 && Points<2250){
-  xspike2 = xpike + 54;
+  xspike2 = xspike + 54;
   if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
@@ -963,7 +964,7 @@ void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[],int 
 //***************************************************************************************************************************************
 void make_floor(){
    for(int x = 0; x <319; x++){
-    LCD_Bitmap(x, 222, 17, 17, ground);
+    LCD_Bitmap(x, 216, 17, 17, ground);
     x += 16;
  }
 }
@@ -1699,17 +1700,20 @@ platx2 = xspike;
 platy1 = 90;
  }
 void pausa(){
-  
+    //pauseOld= HIGH;
    Start = false;
   while(!Start){
   pausable = digitalRead(pause);
+  buttonState2 = digitalRead(buttonPin2);
+  buttonState = digitalRead(buttonPin);
   String text2 = "Pause";
   LCD_Print(text2, 70, 120, 2, 0xffff, 0xD082);
   digitalWrite(pausemusic, HIGH);
-    if(pausable == HIGH){
+    if(pausable == HIGH && (buttonState2 == LOW||buttonState == LOW)){
       Start = true;
       digitalWrite(pausemusic, LOW);
       FillRect(70, 120, 90, 30, 0x421b);
     }
+    //pauseOld = pausable;
   }
  }
