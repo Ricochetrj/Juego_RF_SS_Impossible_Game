@@ -254,6 +254,11 @@ void loop() {
 xspike += spikescroll;
 xspike2 = xspike + 27;
 xspike3 = xspike2 + 27;
+if(Points<10){
+String kush = "Level 1";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000);
+}
 if(Points<200){
   if(xspike<=265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
@@ -264,12 +269,11 @@ if(Points<200){
   }
 }
 if(Points == 200){
-  FillRect(70,70,70,40,0x421b);
   xspike = 265;
-  FillRect(0,189,265,29,0x421b);   
+  FillRect(0,189,319,29,0x421b);   
   String kush = "Level 2";
   LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
-  H_line(70,100,120,0x000);
+  H_line(70,85,120,0x000);
 }
 if(Points>=200 && Points<500){
   //xspike = 264;
@@ -288,8 +292,11 @@ if(Points>=200 && Points<500){
   
 }
 if(Points == 500){
-  xspike = 265;
-  FillRect(0,189,265,29,0x421b); 
+xspike = 265;
+FillRect(0,189,319,29,0x421b);   
+String kush = "Level 3";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000);
 }
 if(Points>=500 && Points<750){
   
@@ -315,8 +322,11 @@ if(Points>=500 && Points<750){
   }
 }
 if(Points == 750){
-  xspike = 265;
-  FillRect(0,189,265,29,0x421b); 
+xspike = 265;
+FillRect(0,189,319,29,0x421b);   
+String kush = "Level 4";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000); 
 }
   if(Points>=750 && Points<1000){
   xspike2 = xspike + 54;
@@ -334,9 +344,11 @@ if(Points == 750){
   }
 }
 if(Points == 1000){
-  xspike = 265;
-  FillRect(0,189,265,29,0x421b); 
-  FillRect(265,189,54,29,0x421b); 
+xspike = 265;
+FillRect(0,189,319,29,0x421b);   
+String kush = "Level 5";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000);
 }
 if(Points>=1000){
   xspike2 = xspike + 81;
@@ -911,7 +923,7 @@ void jump(){
     if(grounded == false){
     if( yB<189 ){
       if(Points <= 200){
-      fallRate = 5;
+      fallRate = 4;
       }
       else if(200<Points && Points <= 500){
       fallRate = 3.5;
@@ -934,7 +946,7 @@ void jump(){
          digitalWrite(PA_7,HIGH); 
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -942,7 +954,7 @@ void jump(){
          fallRate = -10;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -950,7 +962,7 @@ void jump(){
          fallRate = -20;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+20, 16, 32, 0x421b);
+         FillRect(150, yB+20+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -958,7 +970,7 @@ void jump(){
          fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+15, 16, 32, 0x421b);
+         FillRect(150, yB+15+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -966,7 +978,7 @@ void jump(){
          fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+15, 16, 32, 0x421b);
+         FillRect(150, yB+15+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -974,7 +986,7 @@ void jump(){
          fallRate = -10; 
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -982,7 +994,7 @@ void jump(){
          fallRate = -10; 
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -990,7 +1002,7 @@ void jump(){
          fallRate = -10;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -998,7 +1010,7 @@ void jump(){
          fallRate = -10; 
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1006,7 +1018,7 @@ void jump(){
          fallRate = -10;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpen = 0;
          jumpstate= 0;
         break;
@@ -1041,7 +1053,7 @@ void jump2(){
          digitalWrite(PA_7,HIGH); 
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1049,7 +1061,7 @@ void jump2(){
          fallRate = -10;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1057,7 +1069,7 @@ void jump2(){
          fallRate = -20;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+20, 16, 32, 0x421b);
+         FillRect(150, yB+20+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1065,7 +1077,7 @@ void jump2(){
          fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+15, 16, 32, 0x421b);
+         FillRect(150, yB+15+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1073,7 +1085,7 @@ void jump2(){
          fallRate = -15;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+15, 16, 32, 0x421b);
+         FillRect(150, yB+15+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1081,7 +1093,7 @@ void jump2(){
          fallRate = -10; 
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1089,7 +1101,7 @@ void jump2(){
          fallRate = -10; 
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1097,7 +1109,7 @@ void jump2(){
          fallRate = -10;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1105,7 +1117,7 @@ void jump2(){
          fallRate = -10; 
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpstate ++;
         break;
 
@@ -1113,7 +1125,7 @@ void jump2(){
          fallRate = -10;
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
-         FillRect(150, yB+10, 16, 32, 0x421b);
+         FillRect(150, yB+10+16, 16, 32, 0x421b);
          jumpen = 0;
          jumpstate= 0;
         break;
@@ -1142,7 +1154,7 @@ void jump2(){
          digitalWrite(PA_7,HIGH); 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+10, 20, 40, 0x421b);
+         FillRect(110, yB2+10+20, 20, 40, 0x421b);
          jumpstate2 ++;
         break;
 
@@ -1150,7 +1162,7 @@ void jump2(){
          fallRate2 = -20; 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+20, 20, 40, 0x421b);
+         FillRect(110, yB2+20+20, 20, 40, 0x421b);
          jumpstate2 ++;
         break;
 
@@ -1158,7 +1170,7 @@ void jump2(){
          fallRate2 = -15; 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+15, 20, 40, 0x421b);
+         FillRect(110, yB2+15+20, 20, 40, 0x421b);
          jumpstate2 ++;
         break;
 
@@ -1166,7 +1178,7 @@ void jump2(){
          fallRate2 = -15; 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+15, 20, 40, 0x421b);
+         FillRect(110, yB2+15+20, 20, 40, 0x421b);
          jumpstate2 ++;
         break;
 
@@ -1174,7 +1186,7 @@ void jump2(){
          fallRate2 = -15; 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+15, 20, 40, 0x421b);
+         FillRect(110, yB2+15+20, 20, 40, 0x421b);
          jumpstate2 ++;
         break;
 
@@ -1182,7 +1194,7 @@ void jump2(){
          fallRate2 = -10; 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+10, 20, 40, 0x421b);
+         FillRect(110, yB2+10+20, 20, 40, 0x421b);
          jumpstate2 ++;
         break;
 
@@ -1190,7 +1202,7 @@ void jump2(){
          fallRate2 = -10; 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+10, 20, 40, 0x421b);
+         FillRect(110, yB2+10+20, 20, 40, 0x421b);
          jumpstate2 ++;
         break;
 
@@ -1198,7 +1210,7 @@ void jump2(){
          fallRate2 = -10; 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+10, 20, 40, 0x421b);
+         FillRect(110, yB2+10+20, 20, 40, 0x421b);
          jumpstate2 ++;
         break;
 
@@ -1206,7 +1218,7 @@ void jump2(){
          fallRate2 = -10; 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+10, 20, 40, 0x421b);
+         FillRect(110, yB2+10+20, 20, 40, 0x421b);
          jumpstate2 ++;
         break;
 
@@ -1214,7 +1226,7 @@ void jump2(){
          fallRate2 = -10; 
          fallRateInt2= int(fallRate2);
          yB2+=fallRateInt2; 
-         FillRect(110, yB2+10, 20, 40, 0x421b);
+         FillRect(110, yB2+10+20, 20, 40, 0x421b);
          jumpen2 = 0;
          jumpstate2= 0;
         break;
