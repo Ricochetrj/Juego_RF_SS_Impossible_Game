@@ -136,7 +136,7 @@ uint8_t jumpstate2 = 0;
 uint8_t jumpen2 = 0;
 uint8_t introanim= 0;
 uint8_t introanimstate = 0;
-
+uint8_t fspeed= 0;
 File myFile;
 //***************************************************************************************************************************************
 // Inicialización
@@ -250,6 +250,7 @@ void loop() {
    
     jump();    
     buttonStateOld = buttonState;
+    
 //spikes
 
 xspike += spikescroll;
@@ -533,40 +534,54 @@ if(Multiplayer == 1){
 //spikes
 
 xspike += spikescroll;
+xspike2 = xspike + 27;
+xspike3 = xspike2 + 27;
+if(Points<10){
+String kush = "Level 1";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000);
+}
 if(Points<200){
-  if(xspike<292){
+  if(xspike<=265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>292){
-  xspike = 292;
+  else if(xspike>265&& xspike< 0){
+  xspike = 265;
   }
 }
-
+if(Points == 200){
+  xspike = 265;
+  FillRect(0,189,319,29,0x421b);   
+  String kush = "Level 2";
+  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+  H_line(70,85,120,0x000);
+}
 if(Points>=200 && Points<500){
-  xspike2 = xspike + 150;
-  if(xspike<292){
+  if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
-  else if(xspike>292){
-  xspike = 292;
+  else if(xspike>265){
+  xspike = 265;
   }
 
-  if(xspike2<292){
+  if(xspike2<265 && xspike<=292){
   LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike2+27,189,27,29,0x421b);   
-  }
-  else if(xspike2>292){
-  xspike2 = 292;
   }
   
 }
-
-if(Points>=500 /*&& Points<1000*/){
-  xspike2 = xspike + 100;
-  xspike3 = xspike2 + 100;
-  if(xspike<292){
+if(Points == 500){
+xspike = 265;
+FillRect(0,189,319,29,0x421b);   
+String kush = "Level 3";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000);
+}
+if(Points>=500 && Points<750){
+  
+  if(xspike<265){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike+27,189,27,29,0x421b);   
   }
@@ -574,20 +589,169 @@ if(Points>=500 /*&& Points<1000*/){
   xspike = 292;
   }
 
-  if(xspike2<292){
+  if(xspike2<265 && xspike<=292){
   LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike2+27,189,27,29,0x421b);   
   }
-  else if(xspike2>292){
-  xspike2 = xspike + 50;
-  }
+//  else if(xspike2>292){
+//  xspike2 = xspike + 250;
+//  }
 
-  if(xspike3<292){
+  if(xspike3<265 && xspike2<=292){
   LCD_Sprite(xspike3,189,27,29,spikes,7,animsp,0,0);
   FillRect(xspike3+27,189,27,29,0x421b);   
   }
-  else if(xspike3>292){
-  xspike3 = xspike2 + 50;
+}
+if(Points == 750){
+xspike = 265;
+FillRect(0,189,319,29,0x421b);   
+String kush = "Level 4";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000); 
+}
+  if(Points>=750 && Points<1000){
+  xspike2 = xspike + 54;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+}
+if(Points == 1000){
+xspike = 265;
+FillRect(0,189,319,29,0x421b);   
+String kush = "Level 5";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000);
+}
+if(Points>=1000 && Points<1250){
+  xspike2 = xspike + 81;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+}
+
+if(Points == 1250){
+xspike = 265;
+FillRect(0,189,319,29,0x421b);   
+String kush = "Level 6";
+LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+H_line(70,85,120,0x000);
+}
+if(Points>=1250 && Points<1500){
+  xspike2 = xspike + 57;
+  xspike3 = xspike2 + 57;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+  if(xspike<265){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>292){
+  xspike = 292;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+
+  if(xspike3<265 && xspike2<=292){
+  LCD_Sprite(xspike3,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike3+27,189,27,29,0x421b);   
+  }
+}
+
+if(Points == 1500){
+  xspike = 265;
+  FillRect(0,189,319,29,0x421b);   
+  String kush = "level 7";
+  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+  H_line(70,85,120,0x000);
+}
+
+if(Points>=1500 && Points<1750){
+  spikescroll = -4;
+  if(xspike<=265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265&& xspike< 0){
+  xspike = 265;
+  }
+}
+ 
+if(Points == 1750){
+  xspike = 265;
+  FillRect(0,189,319,29,0x421b);   
+  String kush = "level 8";
+  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+  H_line(70,85,120,0x000);
+}
+
+if(Points>=1750 && Points<2000){
+  xspike2 = xspike + 27;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
+  }
+}
+
+if(Points == 2000){
+  xspike = 265;
+  FillRect(0,189,319,29,0x421b);   
+  String kush = "level 9";
+  LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
+  H_line(70,85,120,0x000);
+}
+
+if(Points>=2000 && Points<2250){
+  xspike2 = xspike + 54;
+  if(xspike<265 && xspike >= 0){
+  LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike+27,189,27,29,0x421b);   
+  }
+  else if(xspike>265){
+  xspike = 265;
+  }
+
+  if(xspike2<265 && xspike<=292){
+  LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+  FillRect(xspike2+27,189,27,29,0x421b);   
   }
 }
 ///Plataformas
@@ -999,9 +1163,10 @@ void jump(){
    
     
   
-    uint8_t fspeed;
+    
     if(grounded == false){
     if( yB<189 ){
+
       if(Points <= 200){
       fallRate = 4;
       }
@@ -1012,7 +1177,7 @@ void jump(){
       fallRate = 3;
       }
       else if(500<Points && Points <= 750){
-      fallRate = 2.3;
+      fallRate = 2.1;
       }
       else if(750<Points && Points <= 1000){
       fallRate = 7;
@@ -1038,7 +1203,7 @@ void jump(){
     FillRect(150, yB-fspeed, 16, fspeed, 0x421b);
     fallRateInt= int(fallRate);
     yB+=fallRateInt;
-    if(yB+16>216){
+    if(yB>189){
       yB = 189; 
     }
     }
@@ -1346,23 +1511,90 @@ void jump2(){
     
     if(grounded == false){
     if( yB<189 ){
+      if(Points <= 200){
       fallRate = 4;
+      }
+      else if(200<Points && Points <= 500){
+      fallRate = 3.5;
+      }
+      else if(500<Points && Points <= 750){
+      fallRate = 3;
+      }
+      else if(500<Points && Points <= 750){
+      fallRate = 2.1;
+      }
+      else if(750<Points && Points <= 1000){
+      fallRate = 7;
+      }
+      else if(1000<Points && Points <= 1250){
+      fallRate = 4;
+      }
+      else if(1250<Points && Points <= 1500){
+      fallRate = 7;
+      }
+      else if(1500<Points && Points <= 1750){
+      fallRate = 4;
+      }
+      else if(1750<Points && Points <= 2000){
+      fallRate = 4;
+      }
+      else if(2000<Points && Points <= 2250){
+      fallRate = 7;
+      }
       digitalWrite(PA_7,LOW);
-      
     }
+    fspeed = fallRate;
+    FillRect(150, yB-fspeed, 16, fspeed, 0x421b);
     fallRateInt= int(fallRate);
-    yB+=fallRateInt; 
-    FillRect(150, yB-4, 16, 4, 0x421b);
+    yB+=fallRateInt;
+    if(yB>189){
+      yB = 189; 
+    }
     }
 
     if(grounded2 == false){
+      uint8_t fspeed2;
       if( yB2<185 ){
+      if(Points <= 200){
       fallRate2 = 4;
+      }
+      else if(200<Points && Points <= 500){
+      fallRate2 = 3.5;
+      }
+      else if(500<Points && Points <= 750){
+      fallRate2 = 3;
+      }
+      else if(500<Points && Points <= 750){
+      fallRate2 = 2.1;
+      }
+      else if(750<Points && Points <= 1000){
+      fallRate2 = 7;
+      }
+      else if(1000<Points && Points <= 1250){
+      fallRate2 = 4;
+      }
+      else if(1250<Points && Points <= 1500){
+      fallRate2 = 7;
+      }
+      else if(1500<Points && Points <= 1750){
+      fallRate2 = 4;
+      }
+      else if(1750<Points && Points <= 2000){
+      fallRate2 = 4;
+      }
+      else if(2000<Points && Points <= 2250){
+      fallRate2 = 7;
+      }
       digitalWrite(PA_7,LOW);
     }
+    fspeed2 = fallRate2;
+    FillRect(110, yB2-fspeed, 20, fspeed, 0x421b);
     fallRateInt2= int(fallRate2);
     yB2+=fallRateInt2;
-    FillRect(110, yB2-4, 20, 4, 0x421b);
+    if(yB>185){
+      yB = 185; 
+    }
+    
     }
     
      
