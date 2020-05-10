@@ -199,11 +199,14 @@ void setup() {
     return;
   }
   Serial.println("We Found the Kush #420.");
-  //////////////
-Game_Start();
+//***************************************************************************************************************************************
+// Se crean los assets iniciales del menu del juego
+//***************************************************************************************************************************************
+Game_Start(); // Funcion quie crea el layout del menu principal
  while(!Start){
-  buttonState = digitalRead(buttonPin);
+  buttonState = digitalRead(buttonPin);// Inicializamos las varibles donde se guardan los estados de los botones    
   buttonState2 = digitalRead(PE_2);
+  ///Este subrutina crea los sprites que se mueven en el Menu princiapal, y ponen los textos sobre sus cabezas
   introanim ++;
   introanimstate = (introanim/10)%4;
   LCD_Sprite(50,50,16,30,sans,4,introanimstate,0,0);
@@ -214,27 +217,27 @@ Game_Start();
   LCD_Print(kush, 50-15, 20, 2, 0xffff, 0x421b);
   String wack = "P2";
   LCD_Print(wack, 250, 20, 2, 0xffff, 0x421b);
-    if(buttonState == LOW){
+  /////////////////
+    if(buttonState == LOW){ //revisa si se apacho el boton 1 para iniciar el juego en modo de singleplayer
       Start = true;
       digitalWrite(PA_7,HIGH);
       Multiplayer = 0;
     }
-    if(buttonState2 == LOW){
+    if(buttonState2 == LOW){ //revisa si se apacho el boton 2 para iniciar el juego en modo de multiplayer
       Start = true;
-      //LCD_Sprite(55,170,28,35,chonk,14,1,0,0);
-      FillRect(55,155,28,35,0x00ff);
       Multiplayer = 1;
     }
   }
+  /// Crea el layout del juego, creando el color de fondo, el piso, el texto que se mustra hasta arriba y el lugar dondde se encuentra el puntaje
   FillRect(0, 0, 319, 219, 0x421b);
   String text1 = "Impossible Game!";
   LCD_Print(text1, 30, 20, 2, 0xffff, 0xD082);
   
- xspike = 264;
+ xspike = 264; //Inicializamos la posicion de los obstaculos
  make_floor();
   String score = "Score:";
   LCD_Print(score, 200, 50, 2, 0x0000, 0xD082);
-  Puntos = String(Points);
+  Puntos = String(Points);// Cconvertimos la variable de puntaje en un texto para que se pueda desplegar en la pantalla
   LCD_Print(Puntos, 200, 70, 2, 0x0000, 0xD082);
   
 
@@ -245,46 +248,44 @@ Game_Start();
 //***************************************************************************************************************************************
 
 void loop() {
- if(Multiplayer == 0){
-  FillRect(0,189,27,32,0x421b); 
-  make_floor();
-  Points= Points +0.001;
+ 
+ if(Multiplayer == 0){/// Revisa si el juego se inicio en modo de un solo jugador
+  
+  FillRect(0,189,27,32,0x421b); // Crea un rectangulo en cada ciclo que elimina los obstaculos que estan a la izquierda del jugador
+  make_floor(); //Funcion que crea el piso en caso de que este se borre en alguna animacion
+  Points= Points +0.001; //Inicializamos los puntos y la velocidad a la que estos se suman
   Puntos = String(Points);
   LCD_Print(Puntos, 200, 70, 2, 0x0000, 0xD082);
-  if((cubex2>=platx1) && (cubex1<=platx2) &&(cubey1>=platy1)){
-    grounded = true;
-  }
-  else if(yB >= 189 ){
+  
+  if(yB >= 189 ){ //Revisamos si el jugador se encuentra en el piso o no para saber si puede saltar o no
     grounded = true;
   }
   else if(yB < 189){
     grounded = false;
   }
-  Points ++;
-  Serial.println(Points);
-  buttonState = digitalRead(buttonPin);
-  LCD_Sprite(150,yB,16,30,sans,4,animc,0,0);
-  jump();    
-  buttonStateOld = buttonState;
+  buttonState = digitalRead(buttonPin); //Leemos el estado del boton en cada ciclo para saber si el jugador esta saltando
+  LCD_Sprite(150,yB,16,30,sans,4,animc,0,0); // Crea y anima el sprite del P1
+  jump();    // Funcion que revisa si el jugador esta apachando el boton para saltar, o si se ensta en estado de salto para obligar al jugador a decender al piso.
+  buttonStateOld = buttonState; //Anti-rebote del boton
   
-  xspike += spikescroll;
-  xspike2 = xspike + 27;
+  xspike += spikescroll; //Permite que los obstaculos se desplazen hacia el jugador (derecha a izquierda)
+  xspike2 = xspike + 27; // En caso de multiples obstaculos, determina la distancia entre ellos
   xspike3 = xspike2 + 27;
-  if(Points<10){
+  if(Points<10){ //Se crea el texto inicial donde se muestra en que nivel se encuentra 
     String kush = "Level 1";
     LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
     H_line(70,85,120,0x000);
     }
-  if(Points<200){
+  if(Points<200){//Primer nivel donde el jugador solo tiene brincar por sobre un solo pico
     if(xspike<=265 && xspike >= 0){
-      LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
-      FillRect(xspike+27,189,27,29,0x421b);   
+      LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0); // Se crea el primer obstaculo
+      FillRect(xspike+27,189,27,29,0x421b);   //Se borra el sprite del obstaculo que queda detras 
       }
-      else if(xspike>265&& xspike< 0){
+      else if(xspike>265&& xspike< 0){ // Condicion que revisa si el obstaculo ya salio de la pantalla
         xspike = 265;
         }
     }
-  if(Points == 175){
+  if(Points == 175){ //Inicializacion del segundo nivel
       FillRect(xspike,189,27,29,0x421b);
       xspike = 265;
       FillRect(0,189,319,29,0x421b);   
@@ -293,9 +294,9 @@ void loop() {
       H_line(70,85,120,0x000);
       FillRect(xspike,189,27,29,0x421b);
       }
-  if(Points>=200 && Points<500){
+  if(Points>=200 && Points<500){ //Segundo nivel donde el jugador solo tiene brincar por sobre dos picos uno detras del otro
     if(xspike<265 && xspike >= 0){
-      LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
+      LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0); 
       FillRect(xspike+27,189,27,29,0x421b);
       FillRect(xspike-54,189,54,29,0x421b);   
       }
@@ -304,7 +305,7 @@ void loop() {
       }
 
   if(xspike2<265 && xspike<=292){
-    LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);
+    LCD_Sprite(xspike2,189,27,29,spikes,7,animsp,0,0);// creacion del segundo obstaculo
     FillRect(xspike2+27,189,27,29,0x421b);   
     }
   
@@ -316,7 +317,7 @@ String kush = "Level 3";
 LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
 H_line(70,85,120,0x000);
 }
-if(Points>=500 && Points<750){
+if(Points>=500 && Points<750){//Tercer nivel donde el jugador solo tiene brincar por sobre tres picos uno detras del otro
   
   if(xspike<265){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
@@ -332,7 +333,7 @@ if(Points>=500 && Points<750){
   }
 
   if(xspike3<265 && xspike2<=292){
-  LCD_Sprite(xspike3,189,27,29,spikes,7,animsp,0,0);
+  LCD_Sprite(xspike3,189,27,29,spikes,7,animsp,0,0); //Creacion del tercer obstaculo
   FillRect(xspike3+27,189,27,29,0x421b);   
   }
 }
@@ -343,7 +344,7 @@ String kush = "Level 4";
 LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
 H_line(70,85,120,0x000); 
 }
-  if(Points>=750 && Points<1000){
+  if(Points>=750 && Points<1000){//Cuarto nivel donde el jugador solo tiene brincar por sobre dos picos uno separado del otro
   xspike2 = xspike + 54;
   if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
@@ -365,7 +366,7 @@ String kush = "Level 5";
 LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
 H_line(70,85,120,0x000);
 }
-if(Points>=1000 && Points<1250){
+if(Points>=1000 && Points<1250){//Quinto nivel donde el jugador solo tiene brincar por sobre dos picos uno detras del otro con una distancia mayor
   xspike2 = xspike + 81;
   if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
@@ -388,7 +389,7 @@ String kush = "Level 6";
 LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
 H_line(70,85,120,0x000);
 }
-if(Points>=1250 && Points<1500){
+if(Points>=1250 && Points<1500){//Sexto nivel donde el jugador solo tiene brincar por sobre tres picos uno separado del otro por la distancia de un solo pico
   xspike2 = xspike + 57;
   xspike3 = xspike2 + 57;
   if(xspike<265 && xspike >= 0){
@@ -430,7 +431,7 @@ if(Points == 1500){
   H_line(70,85,120,0x000);
 }
 
-if(Points>=1500 && Points<1750){
+if(Points>=1500 && Points<1750){//Septimo nivel donde el jugador solo tiene brincar por sobre un pico que se mueve mas rapido que los anteriores
   spikescroll = -4;
   if(xspike<=265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
@@ -449,7 +450,7 @@ if(Points == 1750){
   H_line(70,85,120,0x000);
 }
 
-if(Points>=1750 && Points<2000){
+if(Points>=1750 && Points<2000){//Octavo nivel donde el jugador solo tiene brincar por sobre dos picos uno detras del otro que se mueven mas rapido que los anteriores
   xspike2 = xspike + 27;
   if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
@@ -473,7 +474,8 @@ if(Points == 2000){
   H_line(70,85,120,0x000);
 }
 
-if(Points>=2000 && Points<2250){
+if(Points>=2000 && Points<2250){//Noveno nivel donde el jugador solo tiene brincar por sobre dos picos separados uno del otro que se mueven mas rapido que los anteriores
+  xspike2 = xspike + 27;
   xspike2 = xspike + 54;
   if(xspike<265 && xspike >= 0){
   LCD_Sprite(xspike,189,27,29,spikes,7,animsp,0,0);
@@ -489,21 +491,23 @@ if(Points>=2000 && Points<2250){
   }
 }
 
-if(Points == 2250){ 
+if(Points == 2250){  // Condicion de victoria
   FillRect(0,189,319,29,0x421b);   
   String kush = "WIN";
   LCD_Print(kush, 70, 70, 2, 0xffff, 0x421b);
   H_line(70,85,120,0x0FF0);
 }
-if(Points>=2250){
+if(Points>=2250){  // Se gana el Juego y se regresa a la pantalla principal
   String kusha = "Winner Winner Chicken Dinner";
   LCD_Print(kusha, 10, 150, 2, 0xffff, 0x421b);
   delay(2000);
   gameover();
 }
-animate();
-collision();
-pausable = digitalRead(pause);
+animate(); // Funcion que permite las animaciones de los obstaculos y jugadores
+collision(); // funcion que revisa si el jugador colisiona con alguno de los obstaculos
+
+
+pausable = digitalRead(pause);  // Condicion que revisa si el boton de pausa fue pulsado con anti rebote
 if(pausable == HIGH){
 state = 1;
 }
@@ -518,7 +522,7 @@ pausa();
 
 
 
-if(Multiplayer == 1){
+if(Multiplayer == 1){ // La funcionalidad del multijugador es identica a la del jugador unico, con la unica excepcion de que se crea un segundo sprite que esta siempre detras del del jugador 1
   FillRect(0,189,27,32,0x421b); 
    make_floor();
   Points= Points +0.001;
@@ -543,7 +547,7 @@ if(Multiplayer == 1){
   Points ++;
   Serial.println(Points);
   buttonState = digitalRead(buttonPin);
-  buttonState2 = digitalRead(buttonPin2);
+  buttonState2 = digitalRead(buttonPin2);// Se agrega la lectura de un boton mas
     LCD_Sprite(150,yB,16,32,sans,4,animc,0,0); //sans = player 1 sprite
     LCD_Sprite(110,yB2,20,40,papyrus,4,animc,0,0);//papyrus = player 2 sprite
   FillRect(0, 187, 35, 30, 0x421b);
@@ -1152,14 +1156,14 @@ void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[],int 
 //***************************************************************************************************************************************
 // Funciones Propias
 //***************************************************************************************************************************************
-void make_floor(){
+void make_floor(){// Funcion que dibuja un bitmap a lo largo de todo el eje x a una altura determinada
    for(int x = 0; x <319; x++){
     LCD_Bitmap(x, 216, 17, 17, ground);
     x += 16;
  }
 }
 
-void Game_Start(){
+void Game_Start(){ // Fucion que crea todos los assets de la pantalla de inicio y permite la reproduccion de la musica
   digitalWrite(musica,LOW);
   LCD_Bitmap(0, 0, 320, 240, fondo);
   LCD_Bitmap(80, 40, 154, 77, logo);
@@ -1175,22 +1179,17 @@ void Game_Start(){
   
 }
 ////////////////////////////////////////
-void jump(){
+void jump(){ // Funcion de salto
     fallRate = 0 ;
     fallRateInt= int(fallRate);
     yB+=fallRateInt; 
-    if(grounded == true){
+    if(grounded == true){// Se revisa que el jugador este en el suelo para poder saltar
     if (buttonState == LOW && buttonStateOld == HIGH) {
-      jumpen = 1;
+      jumpen = 1; // Se activa el caso que simula una media parabola hacia arriba
     }
     }
     
-
-   
-    
-  
-    
-    if(grounded == false){
+    if(grounded == false){ // Si no se esta en el suelo y no se esta saltando, caer a una velocidad variable dependiendo el nivel en el que se encuentre
     if( yB<189 ){
 
       if(Points <= 200){
@@ -1225,7 +1224,7 @@ void jump(){
       }
       digitalWrite(PA_7,LOW);
     }
-    fspeed = fallRate;
+    fspeed = fallRate; // Mandar nuevo valor de posicion de vertical al jugador
     FillRect(150, yB-fspeed, 16, fspeed, 0x421b);
     fallRateInt= int(fallRate);
     yB+=fallRateInt;
@@ -1233,11 +1232,11 @@ void jump(){
       yB = 189; 
     }
     }
-     if (jumpen == 1){
+     if (jumpen == 1){ // Subrutina de salto que desplaza a el jugador hacia arriba con desplazamientos grandes y luego graduales para simular una semi parabola
       switch (jumpstate){
         case 0:
          fallRate = -10;
-         digitalWrite(PA_7,HIGH); 
+         digitalWrite(PA_7,HIGH);  // Inicializar sonido de salto en el control
          fallRateInt= int(fallRate);
          yB+=fallRateInt; 
          FillRect(150, yB+10+16, 16, 32, 0x421b);
@@ -1327,7 +1326,7 @@ void jump(){
     }
 }
 ///////////////////////////////////
-void jump2(){
+void jump2(){ // Igual que el salto del single player, pero se agregan funciones identicas para el jugador 2 y sus variables de activacion
     fallRate = 0 ;
     fallRate2 = 0 ;
     fallRateInt= int(fallRate);
@@ -1627,14 +1626,14 @@ void jump2(){
 }
 
 //////////////////////
-void collision(){
-uint8_t cubey1 = yB;
+void collision(){ // Funcion que revisa si una colision ocurrio
+uint8_t cubey1 = yB; //Determina las coordenadas del jugador
 uint8_t cubey2 = yB+30;
 uint8_t cubex1 = 150;
 uint8_t cubex2 = 166;
 
-uint8_t spikey1 = 187;
-uint8_t spikey2 = 187+29;
+uint8_t spikey1 = 187;// Determina las coordenadas de los obstaculos
+uint8_t spikey2 = 187+29; 
 uint8_t spikex1 = xspike;
 uint8_t spikex2 = xspike+27;
 
@@ -1647,22 +1646,17 @@ uint8_t spike3y1 = 187;
 uint8_t spike3y2 = 187+29;
 uint8_t spike3x1 = xspike3;
 uint8_t spike3x2 = xspike3+27;
-if (Points<200){
- if((cubex2>=spikex1) && (cubex1<=spikex2) &&(cubey2>=spikey1)){
-  gameover();   
- }
+ if((cubex2>=spikex1) && (cubex1<=spikex2) &&(cubey2>=spikey1)){//Funcion que revisa si las coordenadas del hitbox del jugador se encuentran en las coordenadas del hitbox de el obstaculo y si se cumplen las condiciones, obliga a el jugador a perder
+  gameover();   // Funcion que muestra pantalla de game over y da la opcion de regresar al menu principal
 }
-if (Points>=200 && Points<500){
-  if((cubex2>=spikex1) && (cubex1<=spikex2) &&(cubey2>=spikey1)){
+
+  if((cubex2>=spikex1) && (cubex1<=spikex2) &&(cubey2>=spikey1)){ 
   gameover();   
- }
+  }
   
   if((cubex2>=spike2x1) && (cubex1<=spike2x2) &&(cubey2>=spike2y1)){
   gameover();   
  }
-}
-
-if (Points>=500){
   if((cubex2>=spike3x1) && (cubex1<=spike3x2) &&(cubey2>=spike3y1)){
   gameover();   
  }
@@ -1672,10 +1666,10 @@ if (Points>=500){
  if((cubex2>=spikex1) && (cubex1<=spikex2) &&(cubey2>=spikey1)){
   gameover();   
  }
-}
+
 }
 ///////////////////////////////
-void collision2(){
+void collision2(){ // Igual que la funcion de colision original pero revisa el hitbox de dos jugadores
 
 cubey1 = yB;
 cubey2 = yB+30;
@@ -1765,7 +1759,7 @@ if (Points>=500){
 }
 }
 
-void animate(){
+void animate(){ // Funcion que crea un numero que sale de una funcion de modulacion, permitiendo animar los sprites de los jugadores y obstaculos a una velocidad determinada
 animcstate += 3;
 animspstate += 3;
 animc = (animcstate/10)%4;
@@ -1774,26 +1768,25 @@ animsp = (animspstate/10)%7;
 void gameover(){
   Start = false;
   FillRect(0, 0, 319, 219, 0x421b);
-  while(!Start){
-    digitalWrite(musica,HIGH);
-   Bitmap_SD(0,0,320,240,"nepe");
-  String over = "Git Gud!";
+  while(!Start){ // Hasta que se presione un boton no se sale de la pantalla de game obver
+    digitalWrite(musica,HIGH); // Pone la musica de game over
+  String over = "Git Gud!"; // Crea los assets y textos de la pantalla de game over
   LCD_Print(over, 100, 100, 2, 0xffff, 0xD082);
   String again = "Press Jump to Start again";
   LCD_Print(again, 100, 150, 1, 0xf420, 0x0000);
-  highscore();
+  highscore(); // Funcion que Despliega en pantalla el puntaje del jugador 
   make_floor();
   
-  buttonState = digitalRead(buttonPin);
+  buttonState = digitalRead(buttonPin); //Revisar si se presiono el boton para regresar al menu principal
     if(buttonState == LOW){
       Start = true;
     }
   }
-  Game_Start();
+  Game_Start();// Funcion que recrea el mentu principal
   Start = false;
-  sd_highscore();
+  sd_highscore(); // Funcion que almacena el puntaje en la tarjeta SD
   while(!Start){
-  buttonState2 = digitalRead(buttonPin2);
+  buttonState2 = digitalRead(buttonPin2);// Assets del menu del inicio
   buttonState = digitalRead(buttonPin);
   introanim ++;
   introanimstate = (introanim/10)%4;
@@ -1805,7 +1798,7 @@ void gameover(){
   LCD_Print(kush, 50-15, 20, 2, 0xffff, 0x421b);
   String wack = "P2";
   LCD_Print(wack, 250, 20, 2, 0xffff, 0x421b);
-    if(buttonState == LOW){
+    if(buttonState == LOW){ // Revisa que boton se presiono antes de regresar al menu principal
       Start = true;
       digitalWrite(PA_7,HIGH);
       Multiplayer = 0;
@@ -1822,14 +1815,14 @@ void gameover(){
    make_floor();
    String score = "Score:";
   LCD_Print(score, 200, 50, 2, 0x0000, 0xD082);
-  Points = 0;
+  Points = 0; // Reinicimaos los valores iniciales
   xspike = 264;
   yB = 187;
   yB2 = 184;
   
   }
 
-void winner(void){
+void winner(void){ // Funcion de multijugador que funciona igual que game over, solo que revisa que jugador gano
  if(p1w == 1){
    
   Start = false;
@@ -1946,7 +1939,7 @@ void winner(void){
  }
 }
 
-void sd_highscore(){
+void sd_highscore(){  // Abre un archivo de texto en la memoria SD, revisa si se supero cierto puntaje, y si se logro superar, guarda dicho puntaje en la SD
   myFile = SD.open("HIGHSC~1.txt", FILE_WRITE);
   if (myFile) {
     Serial.print("Are you worthy of the hall of fame?");
@@ -1978,15 +1971,8 @@ void sd_highscore(){
     Serial.println("Empty");
   }
 }
- void plataforma(){  
-LCD_Bitmap(xspike, 90, 32, 17, platform);
-FillRect(xspike+32,90,32,17,0x421b);
-platx1 = xspike-32;
-platx2 = xspike;
-platy1 = 90;
- }
-void pausa(){
-    //pauseOld= HIGH;
+
+void pausa(){ // Funcion que activa un loop infinito cunado se presiona el boton de pausa, y solo permite salir del loop infinito al presionar alguno de los otros dos botones
    Start = false;
   while(!Start){
   pausable = digitalRead(pause);
@@ -1997,14 +1983,13 @@ void pausa(){
   digitalWrite(pausemusic, HIGH);
     if(pausable == HIGH && (buttonState2 == LOW||buttonState == LOW)){
       Start = true;
-      digitalWrite(pausemusic, LOW);
+      digitalWrite(pausemusic, LOW); // Activa la musica de pausa
       FillRect(70, 120, 90, 30, 0x421b);
     }
-    //pauseOld = pausable;
   }
  }
 
-void highscore(){
+void highscore(){ // Muestra en pantalla a la hora de perder ;a puntuacion que alcanzo el jugador
   String text2 = "Your Score:";
   LCD_Print(text2, 30, 60, 2, 0xf420, 0xB066);
   LCD_Print(Puntos, 210, 60, 2, 0xffff, 0xCD69);
